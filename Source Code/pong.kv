@@ -1,0 +1,77 @@
+#:kivy 2.0.0
+
+<PongBall>:
+    size: 70, 70
+    canvas:
+        Ellipse:
+            pos: self.pos
+            size: self.size
+            source: 'Images/ball.png'
+
+<PongPaddle>:
+    size: 50, 250
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'Images/paddle.jpg'
+
+<PongGame>:
+    ball: pong_ball
+    player1: player_left
+    player2: player_right
+    continue_text: continue_text
+
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'Images/bg.jpg'
+            
+    Label:
+        font_size: 35
+        center_x: root.center_x
+        top: root.top + 15
+        text: str(root.message)
+        font_name: 'Fonts/koho_bold.ttf'
+        color: (167/255, 232/255, 176/255, 1)
+
+    Label:
+        font_size: 30
+        id: continue_text
+        center_x: root.center_x
+        center_y: self.height
+        font_name: 'Fonts/koho_bold.ttf'
+        text: "Touch anywhere to continue..."
+        color: (1, 1, 0, 0)
+
+    Label:
+        font_size: 80
+        center_x: root.width / 4
+        top: root.top - 60
+        text: str(root.player1.score)
+        font_name: 'Fonts/koho_extralight.ttf'
+        color: (1, 0, 0, 1)
+
+    Label:
+        font_size: 80
+        center_x: root.width * 3 / 4
+        top: root.top - 60
+        text: str(root.player2.score)
+        font_name: 'Fonts/koho_extralight.ttf'
+        color: (0, 0, 0, 1)
+
+    PongBall:
+        id: pong_ball
+        center: self.parent.center
+
+    PongPaddle:
+        id: player_left
+        x: root.x + self.width + 10
+        center_y: root.center_y
+
+    PongPaddle:
+        id: player_right
+        x: root.width - (self.width + self.width + 10)
+        center_y: root.center_y
+        
